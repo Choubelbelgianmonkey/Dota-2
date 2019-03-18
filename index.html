@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Dota 2: all you need!</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    
+    <link rel="icon" href="./images/dota.png" type="image/gif" sizes="16x16">
+
+    <!--  CSS & bootstrap with jquery -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
+<link rel="stylesheet" href="./css/css.css">
+
+</head>
+
+<body>
+
+<div id="app">
+
+<div id="top_all_pages" >
+
+    <div>
+        <div class="dropdown">
+
+            <!--   this part create the moving of the button-->
+
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                <div class="container" >
+                    <div class="bar1"></div>
+                    <div class="bar2"></div>
+                    <div class="bar3"></div>
+                </div>
+            </a>
+
+            <!--           this part create the navbar per say-->
+
+            <ul class="dropdown-menu">
+                <li><a class="text_color" href="#" v-on:click="setPage('index')">Home</a></li>
+                <li><a class="text_color" href="#" v-on:click="setPage('heroes')">Heroes</a></li>
+                <li><a class="text_color" href="#" v-on:click="setPage('matches')">Matches</a></li>
+                <li><a class="text_color" href="#" v-on:click="setPage('teams')">Teams</a></li>
+                <li><a class="text_color" href="#" v-on:click="setPage('players')">Players</a></li>
+                <li><a class="text_color" href="#" v-on:click="setPage('chat')">Chat</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="align_title">
+    <span class="text_color" id="bonjour">DOTA 2 : All you need!</span>
+    </div>
+    
+    
+    <button type="button" id="back_button" class="btn btn-outline-info previous round" v-on:click="goPreviousPage()">Back</button>
+    
+</div>
+
+<div id="content_page_index" v-show="view == 'index'">
+
+    <img class="img-fluid" src="images/indexBackground.jpg" alt="">
+
+    <form action="action_page.php">
+
+        <div class="container container_perso">
+
+            <input class="background_input" type="text" placeholder="Enter Username" name="uname" autocomplete="username" required>
+
+            <input class="background_input" type="password" placeholder="Enter Password" name="psw" autocomplete="new-password" required>
+        </div>
+
+        <div class="container container_perso">
+
+            <button type="submit" class="background_input">Login</button>
+
+            <label class="text_color">
+                <input type="checkbox" checked="checked" name="remember"> Remember me
+            </label>
+        </div>
+    </form>
+</div>
+
+<div id="content_page_heroes" v-show="view == 'heroes'">
+
+    <div>
+        <input type="text" v-model="search" class="background_input" placeholder="search heroes"/>
+        
+    </div>
+    
+    
+
+    <div>
+
+        <!--      data get from https://docs.opendota.com/#tag/hero-stats%2Fpaths%2F~1heroStats%2Fget-->
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Picture</th>
+                    <th>Name</th>
+                    <th>Primary attribute</th>
+                    <th>Attack Type</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="hero in filteringHeroes"> 
+                        <td @click="heroDetails = hero" v-on:click="setPage('heroDetails')"><img v-bind:src="getMyImageHeroes(hero.id)"></td>
+                        <td @click="heroDetails = hero" v-on:click="setPage('heroDetails')">{{hero.localized_name}}</td>
+                        <td @click="heroDetails = hero" v-on:click="setPage('heroDetails')">{{hero.primary_attr}}</td>
+                        <td @click="heroDetails = hero" v-on:click="setPage('heroDetails')">{{hero.attack_type}}</td>      
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div id="content_page_heroesStats" v-show="view == 'heroDetails'">
+   
+<!--   i do not need a v-for loop here, but i need to specified the object and then selecting the array
+   i need to remember the VKI (value, key, index) pattern
+   
+   -->
+    
+ <div id="mainstats">
+    
+     
+     <img v-bind:src="getMyImageHeroesDetailed(heroDetails.id)">
+     
+     
+     <span>{{heroDetails.localized_name + ":"}}</span>
+     
+     <span v-for="role in heroDetails.roles">{{role + ", " }}</span>
+     
+     <h3> Base Stats</h3>
+     
+     <p> Health and regen: {{heroDetails.base_health}}, {{heroDetails.base_health_regen}}</p>
+      <p> Mana and regen: {{heroDetails.base_mana}}, {{heroDetails.base_mana_regen}}</p>
+       <p> Armor: {{heroDetails.base_armor}}</p>
+        <p> Attack: {{heroDetails.base_attack_min}} - {{heroDetails.base_attack_max}}</p>
+         <p> Strengh: {{heroDetails.base_str}} + {{heroDetails.str_gain}}</p>
+          <p> Agility: {{heroDetails.base_agi}} + {{heroDetails.agi_gain}}</p>
+           <p> Intelligence: {{heroDetails.base_int}} + {{heroDetails.int_gain}}</p>
+
+</div>
+     
+</div>
+
+<div id="content_page_matches" v-show="view == 'matches'">
+
+<iframe src="https://calendar.google.com/calendar/embed?title=Dota%202%20Schedule&amp;showTitle=0&amp;showNav=0&amp;showPrint=0&amp;showTabs=0&amp;showCalendars=0&amp;showTz=0&amp;mode=WEEK&amp;height=667&amp;wkst=1&amp;bgcolor=%23ff6666&amp;src=fk4to3965kp8m5flq795telcfs%40group.calendar.google.com&amp;color=%2342104A&amp;ctz=Europe%2FMadrid" style="border-width:0" width="375" height="667" frameborder="0" scrolling="no"></iframe>
+    
+
+</div>
+
+<div id="content_page_teams" v-show="view == 'teams'">
+
+    <div>
+        <input type="text" v-model="search" class="background_input" placeholder="search teams"/>
+    </div>
+    
+    
+ <div>
+
+        <!--      data get from https://api.opendota.com/api/teams -->
+
+        <table class="table">
+            <thead>
+                <tr>   
+                    <th>Name</th>
+                    <th>Rating</th>
+                </tr>
+            </thead>
+            <tbody>
+
+            <tr v-for="team in filteringTeams">
+                <td @click="teamDetails = team" v-on:click="setPage('teamDetails'), getMatchingTeam(teamDetails.team_id), getPlayerByTeam" >{{team.name}}</td>
+                <td @click="teamDetails = team" v-on:click="setPage('teamDetails'), getMatchingTeam(teamDetails.team_id), getPlayerByTeam">{{team.rating}}</td>
+            </tr>
+
+            </tbody>
+        </table>
+</div>
+   
+    </div>
+    
+<div id="content_page_teamDetails" v-show="view == 'teamDetails'">
+    
+    <div>
+        <img v-bind:src="teamDetails.logo_url">
+        
+        <h3>Win-Loss</h3>
+        <p>Wins: {{teamDetails.wins}}</p>
+        <p>Losses: {{teamDetails.losses}}</p>
+        <p>Ratio: {{this.getRatioWL()}} %</p>
+    </div>
+    
+    <h3>Players</h3>  
+  
+           <table class="table">
+            <thead>
+                <tr>   
+                    <th>Avatar</th>
+                    <th>Name</th>
+                    <th>Steam Link</th>
+                </tr>
+            </thead>
+            <tbody>
+
+            <tr v-for="player in selectedPlayers">
+                <td><img v-bind:src="player.avatar"></td>
+                <td>{{player.name}}</td>
+                <td><a :href="player.profileurl">Click me!</a></td>
+            </tr>
+
+            </tbody>
+        </table> 
+
+    
+</div>
+    
+<div id="content_page_players" v-show="view == 'players'">
+
+    <div>
+        <input type="text" v-model="search" class="background_input" placeholder="search Players"/>
+    </div>
+    
+    
+ <div>
+
+        <!--      data get from https://api.opendota.com/api/proPlayers -->
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Avatar</th>
+                    <th>Nickname</th>
+                    <th>Team name</th>
+                    
+                </tr>
+            </thead>
+            <tbody>
+               <tr  v-for="player in filteringPlayers">
+               
+                <td><img v-bind:src="player.avatar"></td>
+                <td><a :href="player.profileurl">{{player.name}}</a></td>
+                <td>{{player.team_name}}</td>
+                
+
+                </tr>
+            </tbody>
+        </table>
+
+
+</div>
+    </div>
+    
+<div id="content_page_chat" v-show="view == 'chat'">
+
+      <div id="posts" class="box">
+        Loading posts...
+        
+      </div>
+
+      <div class="inputs">
+       
+        <input id="textInput" class="input" type="text" placeholder="Your message...">
+
+        <button id="login"  v-on:click="login" class="button is-info">Login!</button>
+    
+        <button id="create-post"   v-on:click=" writeNewPost, getPosts" class="button is-primary">Send</button>
+       
+      </div>
+      
+</div>
+
+</div>
+
+<div id="bottom_all_pages">
+
+</div>
+
+
+<!--script firebase to reproduce on everypage BEGING HERE-->
+
+<script src="https://www.gstatic.com/firebasejs/5.8.4/firebase.js"></script>
+<script>
+    
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyC2mFf87s5t_MweDefXI2wYR09gNM8v1W0",
+    authDomain: "ubiqum101.firebaseapp.com",
+    databaseURL: "https://ubiqum101.firebaseio.com",
+    projectId: "ubiqum101",
+    storageBucket: "ubiqum101.appspot.com",
+    messagingSenderId: "679551524751"
+  };
+  firebase.initializeApp(config);
+</script>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.js"></script>
+<script src="https://unpkg.com/vue/dist/vue.js"></script>
+<script src="./javaScript/main.js"></script>
+    
+
+<!--script firebase to reproduce on everypage STOP HERE-->
+
+</body>
+</html>

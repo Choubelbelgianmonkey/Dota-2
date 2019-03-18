@@ -1,0 +1,243 @@
+/*background for all page begin here*/
+
+body {
+  background-image: url("../images/backgroundAllPages.jpg");
+  background-repeat: none;
+    width: 100%;
+}
+
+
+/*font for all pages beging here*/
+
+h3 {color: rgba(255, 73, 136, 0.66)}
+
+li {color: rgba(255, 73, 136, 0.66)}
+
+th {color:#d92020}
+
+td {color:#d920b5}
+
+p {color: rgba(255, 73, 136, 0.66)}
+
+span {color: rgba(255, 73, 136, 0.66)}
+
+
+
+/*CSS for top page begin here*/
+
+#top_all_pages {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.previous {
+  background-color: #bb3b3b;
+  color: black;
+     border-radius: 50%;
+}
+
+.large {
+    font-size: large;
+}
+
+.xx-large {
+    font-size: xx-large;
+}
+
+
+.container {
+  display: inline-block;
+  cursor: pointer;
+    padding-right: 0px;
+    padding-left: 0px;
+}
+
+.bar1, .bar2, .bar3 {
+  width: 35px;
+  height: 5px;
+  background-color: #c32b2b;
+  margin: 6px 0;
+  transition: 0.4s;
+}
+
+.change .bar1 {
+  -webkit-transform: rotate(-45deg) translate(-9px, 6px);
+  transform: rotate(-45deg) translate(-9px, 6px);
+}
+
+.change .bar2 {opacity: 0;}
+
+.change .bar3 {
+  -webkit-transform: rotate(45deg) translate(-8px, -8px);
+  transform: rotate(45deg) translate(-8px, -8px);
+}
+
+
+#bottom_all_pages {
+    display: flex;
+    align-items: baseline;
+    justify-content: center;    
+    height: 2vw;
+    
+}
+
+#content_page_index {
+    
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+
+}
+
+.container_perso {
+      display: flex;
+      cursor: pointer;
+    justify-content: space-around;
+}
+
+.dropdown-toggle::after{
+    display: none;
+}
+
+.text_color {
+    color: rgba(255, 73, 136, 0.66)
+}
+
+.dropdown-menu { background-color: #2b3033; }
+
+/*CSS for TOP page STOP HERE*/
+
+
+/*this is use for every box and button to fill (search, login, etc ..) START HERE*/
+
+.background_input { background-color: #46555f; }
+
+.content_button_color {
+      background-color: #bb3b3b;
+      color: black;
+}
+
+
+/*this is use for every page to fill (search, login, etc ..) END HERE*/
+
+.align_title {
+    align-items: center;
+}
+
+/*this is for the heroes.html page START HERE*/
+
+#content_page_heroes {
+    
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+    
+}
+
+/*this is for the heroes.html page END HERE*/
+
+
+/*this is for the heroesDetails.html page START HERE*/
+
+#content_page_heroesStats {
+    display: flex;
+    flex-direction: column;
+}
+
+
+
+
+/*this is for the heroesDetails.html page END HERE*/
+
+/*this is for the matches.html page START HERE*/
+
+#content_page_matches {
+    
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center; 
+    
+}
+
+/*this is for the matches.html page END HERE*/
+
+/*this is for the teams.html page START HERE*/
+
+#content_page_teams {
+    
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+    
+}
+
+/*this is for the teams.html page END HERE*/
+
+/*this is for the players.html page START HERE*/
+
+#content_page_players {
+    
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+}
+
+/*this is for the players.html page END HERE*/
+
+/*this is for the chat.html page START HERE*/
+
+#content_page_chat {
+    
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+    
+}
+
+/*this is for the chat.html page END HERE*/
+
+/*this is for the item.html page START HERE*/
+
+#content_page_item{
+    
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+    
+}
+
+/*this is for the item.html page END HERE*/
+
+
+
+
+.box {
+    background-color: rgba(195, 43, 43, 0.5);
+}
+
+
+@media screen 
+  and (min-device-width: 568px) 
+  and (orientation: landscape) {
+    
+    h3 {color: rgba(122, 255, 73, 0.66)}
+
+    li {color: rgba(122, 255, 73, 0.66)}
+
+    th {color:#20d93c}
+
+    td {color:#20d93c}
+
+    p {color: rgba(122, 255, 73, 0.66)}
+
+    span {color: rgba(122, 255, 73, 0.66)}
+
+}
